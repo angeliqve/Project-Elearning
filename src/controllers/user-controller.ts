@@ -23,18 +23,39 @@ exports.index = async (req: Request, res: Response) => {
   }
 };
 
-// add user
 exports.store = async(req: Request, res: Response) =>{
-  const userData = req.body;
+  try {
+    const userData = req.body;
+  
+    const addUser = userService.addUser(userData);
+  
+    if(!addUser){
+      return res.status(400).json({message: 'Gagal menambahkan user'});
+    }
 
-  const addUser = userService.addUser(userData);
-
-  if(!addUser || addUser.length === 0 || Object.keys(addUser)){
-    return res.status(400).json({message: 'Gagal menambahkan data'});
+    return res.status(200).json({
+      message: ' Berhasil tambah user',
+      data: addUser
+    });
+  } catch (error:any){
+    return res.status(500).json({ message: 'Internal server error' });
   }
+};
 
-  return res.status(200).json({
-    message: ' Berhasil tambah data',
-    data: userData
-  });
+exports.destroy = async(req: Request, res: Response) =>{
+  try {
+    const userId = req.params.id;
+
+    const deleted = userService.deleteUser(userId);
+  
+    if(!deleted){
+      return res.status(400).json({message: 'User tidak ditemukan'});
+    }
+
+    return res.status(200).json({
+      message: 'Berhasil hapus user'
+    });
+  } catch (error:any){
+    return res.status(500).json({ message: 'Internal server error' });
+  }
 };
