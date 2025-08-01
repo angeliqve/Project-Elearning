@@ -37,7 +37,7 @@ exports.destroy = async(req: Request, res: Response) =>{
   try {
     const courseId = req.params.id;
 
-    const deleted = courseService.deleteUser(courseId);
+    const deleted = courseService.deleteCourse(courseId);
   
     if(!deleted){
       return res.status(400).json({message: 'Course tidak ditemukan'});
