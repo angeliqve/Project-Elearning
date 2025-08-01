@@ -18,8 +18,9 @@ exports.addCourse = (course: any) => {
 
 exports.deleteCourse = (id: number) => {
   for (let i = 0; i < courseData.length; i++) {
-    if (courseData[i].id === id) {
+    if (courseData[i].id === Number(id)) {
       courseData.splice(i, 1); 
+      return true;
     }
   }
   return false;

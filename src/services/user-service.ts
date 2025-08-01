@@ -23,7 +23,7 @@ exports.addUser = (user: any) => {
 
 exports.deleteUser = (id: number) => {
   for (let i = 0; i < userData.length; i++) {
-    if (userData[i].id === id) {
+   if (userData[i].id === Number(id)) {
       userData.splice(i, 1); 
       return true;
     }
